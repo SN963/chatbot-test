@@ -3,6 +3,7 @@ from nltk.stem import WordNetLemmatizer
 
 lemmatizer = WordNetLemmatizer()
 import pickle
+import os
 import numpy as np
 from keras.models import load_model
 
@@ -154,4 +155,5 @@ def hello():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = os.environ.get("PORT",5000)
+    app.run(debug=False,host="0.0.0",port=port)
