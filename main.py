@@ -1,17 +1,14 @@
 import nltk
-from nltk.stem import WordNetLemmatizer
-
-lemmatizer = WordNetLemmatizer()
 import pickle
 import os
 import numpy as np
-from keras.models import load_model
-
-model = load_model('chatbot_model.h5')
 import json
 import random
-from tkinter import *
 
+from nltk.stem import WordNetLemmatizer
+lemmatizer = WordNetLemmatizer()
+from keras.models import load_model
+model = load_model('chatbot_model.h5')
 # from googletrans import Translator
 intents = json.loads(open('intents.json').read())
 words = pickle.load(open('words.pkl', 'rb'))
@@ -23,7 +20,6 @@ engine = pyttsx3.init()
 # Language in which you want to convert
 language = 'en'
 
-
 # Passing the text and language to the engine,
 # here we have marked slow=False. Which tells
 # the module that the converted audio should
@@ -33,12 +29,12 @@ from flask import Flask
 app = Flask(__name__)
 
 
-@app.route('/bot',methods=['GET'])
-
+@app.route('/bot', methods=['GET'])
 def hello():
-    #sentence = "كيفيه التقديم فى الجامعه"
-    sentence=input("Enter your question")
-    #sentence = "How to apply"
+    # sentence = "كيفيه التقديم فى الجامعه"
+    sentence = input("Enter your question")
+
+    # sentence = "How to apply"
     def clean_up_sentence(sentence):
         # tokenize the pattern - split words into array
         result = translator.translate(sentence)
@@ -129,14 +125,14 @@ def hello():
     receive = translator.translate(sentence)
     print(receive)
     # reshaped_text = arabic_reshaper.reshape(receive.text)
-    if (receive.src == 'ar'):
+    if receive.src == 'ar':
         receive = translator.translate(sentence, dest='ar')
         reshaped_text = arabic_reshaper.reshape(receive.text)
         rec_text = reshaped_text[::-1]
         print("You: " + rec_text + '\n')
     else:
         print("You: " + receive.text + '\n')
-        # make the object from translator detect the source of the enyered language
+        # make the object from translator detect the source of the encrupted language
         FromUser = translator.translate(receive.text).src
         #
 
@@ -155,5 +151,5 @@ def hello():
 
 
 if __name__ == '__main__':
-    port = os.environ.get("PORT",5000)
-    app.run(debug=False,host="0.0.0",port=port)
+    port = os.environ.get("PORT", 5000)
+    app.run(debug=False, host="0.0.0", port=port)
