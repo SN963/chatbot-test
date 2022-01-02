@@ -1,2 +1,2 @@
-web: gunicorn wsgi:app
+web: python main.py run_gunicorn
 
