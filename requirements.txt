@@ -2,5 +2,5 @@ nltk==3.5
 numpy==1.19.2
 keras==2.7.0
 Flask==1.1.2
-tensorflow==1.15.5
+tensorflow==1.15.0
 gunicorn==20.1.0
